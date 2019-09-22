@@ -41,30 +41,34 @@ var ChipsList = function (_Component) {
 		value: function render() {
 			var _this2 = this;
 
-			return this.props.chips.map(function (chip) {
-				return _react2.default.createElement(
-					'span',
-					{ className: (0, _classnames2.default)({ chip: true, "not-valid": !chip.valid }), key: chip.key },
-					_react2.default.createElement(
+			return _react2.default.createElement(
+				_react.Fragment,
+				null,
+				this.props.chips.map(function (chip) {
+					return _react2.default.createElement(
 						'span',
-						{ className: 'chip-value' },
-						chip.email
-					),
-					_react2.default.createElement(
-						'button',
-						{ type: 'button',
-							className: (0, _classnames2.default)({ "chip-delete-button": true }),
-							onClick: function onClick() {
-								return _this2.props.onChipClick(chip);
-							} },
+						{ className: (0, _classnames2.default)({ chip: true, "not-valid": !chip.valid }), key: chip.key },
 						_react2.default.createElement(
 							'span',
-							null,
-							'x'
+							{ className: 'chip-value' },
+							chip.email
+						),
+						_react2.default.createElement(
+							'button',
+							{ type: 'button',
+								className: 'chip-delete-button',
+								onClick: function onClick() {
+									return _this2.props.onChipClick(chip);
+								} },
+							_react2.default.createElement(
+								'span',
+								null,
+								'x'
+							)
 						)
-					)
-				);
-			});
+					);
+				})
+			);
 		}
 	}]);
 
