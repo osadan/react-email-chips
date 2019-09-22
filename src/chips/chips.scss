@@ -1,0 +1,134 @@
+$chip-y-spacing: 15px;
+$chip-x-spacing: 5px;
+$chip-button-width: $chip-y-spacing + $chip-x-spacing * 2;
+$chip-border-radius: 15px;
+$chip-background: #f3f3f3;
+$chip-color: #8dabc4;
+$chip-min-height: 36px;
+$chip-error-color: #ff586c;
+$chip-border-color: #d8e5ef;
+$chip-title-border: #717585;
+$font-size: 12px;
+
+.chips-header {
+  display: flex;
+  padding-left: 7px;
+  margin-bottom: 5px;
+  .chips-title {
+    font-size: $font-size;
+    color: $chip-title-border;
+    font-weight: bold;
+  }
+  .chips-required-validation-message {
+    font-size: 11px;
+    color: $chip-error-color;
+    margin-left: 5px;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    transition: 1s;
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    &.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+}
+
+.chips {
+  border: 1px solid $chip-title-border;
+  border-radius: 8px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  line-height: 1;
+  font-size: $font-size;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.chips-input {
+  display: inline-block;
+  min-width: 10%;
+  margin-left: $chip-x-spacing * 2;
+  border: 0;
+  outline: none;
+  font-size: 0.9rem;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+.chip {
+  display: inline-block;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: 3px;
+  margin-right: 25px;
+  position: relative;
+  &:first-child {
+    margin-left: none;
+  }
+  &.not-valid {
+    .chip-value,
+    .chip-delete-button {
+      background: #ffeff1;
+      color: #ff586c;
+    }
+  }
+
+  .chip-value {
+    display: inline-block;
+    padding: $chip-x-spacing;
+    padding-left: $chip-y-spacing;
+    padding-right: $chip-y-spacing / 2;
+    background: $chip-background;
+    color: $chip-color;
+    font-weight: bold;
+    border-radius: $chip-border-radius 0 0 $chip-border-radius;
+  }
+
+  .chip-delete-button {
+    outline: none;
+    &.required {
+      color: $chip-background;
+      cursor: initial;
+    }
+    background: $chip-background;
+    color: $chip-color;
+    border: 0;
+    border-radius: 0 $chip-border-radius $chip-border-radius 0;
+    padding: $chip-x-spacing $chip-x-spacing * 2;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -$chip-button-width;
+    line-height: 0.5;
+    font-weight: bold;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}

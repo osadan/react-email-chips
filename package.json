@@ -1,21 +1,40 @@
 {
-  "name": "new",
-  "version": "0.1.0",
-  "private": true,
+  "name": "react-email-chips",
+  "version": "0.1.2",
+  "repository": "osadan/react-email-chips",
   "dependencies": {
+    "classnames": "^2.2.6",
+    "immutability-helper": "^3.0.1",
+    "prop-types": "^15.7.2",
+    "react-scripts": "3.1.1",
+    "react-test-renderer": "^16.9.0"
+  },
+  "peerDependencies": {
     "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
+    "react-dom": "^16.9.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:lib": "NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/chips --out-dir dist --copy-files"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "babel": {
+    "presets": [
+      "react",
+      "env",
+      "stage-2"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
   },
+  "files": [
+    "dist"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
@@ -27,5 +46,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "node-sass": "^4.12.0"
   }
 }
