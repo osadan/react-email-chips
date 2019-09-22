@@ -2,6 +2,12 @@
 
 This is react component to create email chips list
 
+I know there is more advanced component's of this type
+but this gives exactly what I need .
+
+I forked my code from  
+https://codepen.io/broneks/pen/objeqq
+
 The component can receive the following props
 
 - placeholder - to be placed in the input
@@ -14,10 +20,10 @@ The component can receive the following props
 import React from 'react';
 import Chips from 'react-email-chips';
 
-function App() {
+function DemoComponent() {
 	const pattern = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 	return (
-		<div className='App'>
+		<div className='Demo'>
 			<Chips
 				chips={[
 					{ email: 'react@gmail.com', valid: true, key: '1' },
@@ -35,6 +41,6 @@ function App() {
 }
 ```
 
-## License
+### License
 
 MIT Licensed.
