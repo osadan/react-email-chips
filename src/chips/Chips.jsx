@@ -17,6 +17,13 @@ class Chips extends Component {
 		};
 	}
 
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (prevState.chips.length === 0) {
+			return { chips: nextProps.chips };
+		}
+		return null;
+	}
+
 	focusInput(event) {
 		let children = event.target.children;
 
@@ -128,7 +135,7 @@ class Chips extends Component {
 							hidden: !this.state.requiredValidation
 						})}
 					>
-						* At least one valid email is required
+						{this.props.requiredMessage}
 					</span>
 				</div>
 				<div className="chips" onClick={e => this.focusInput(e)}>
@@ -151,7 +158,9 @@ Chips.propTypes = {
 	title: PropTypes.string,
 	save: PropTypes.func,
 	placeholder: PropTypes.string,
-	pattern: PropTypes.instanceOf(RegExp)
+	pattern: PropTypes.instanceOf(RegExp),
+	required: PropTypes.bool,
+	requiredMessage: PropTypes.string
 };
 
 export default Chips;
