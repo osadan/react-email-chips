@@ -15,6 +15,7 @@ class Chips extends Component {
 				enter: 13
 			}
 		};
+		this.inputRef = React.createRef();
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
@@ -34,6 +35,7 @@ class Chips extends Component {
 
 	componentDidMount() {
 		this.setChips(this.props.chips, false);
+		this.inputRef.current.focus();
 	}
 
 	setChips(chips, save) {
@@ -146,6 +148,7 @@ class Chips extends Component {
 						onFocus={() => this.clearRequiredValidation()}
 						placeholder={placeholder}
 						onKeyDown={e => this.onKeyDown(e)}
+						ref={this.inputRef}
 					/>
 				</div>
 			</div>

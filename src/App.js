@@ -12,7 +12,7 @@ function App() {
 					{ email: 'javascript@gmail.com', valid: true, key: '2' },
 					{ email: 'scss@gmail.com', valid: true, key: '3' }
 				]}
-				placeholder="Add a tag..."
+				placeholder=""
 				save={data => console.log('new data', data)}
 				pattern={pattern}
 				required={true}
