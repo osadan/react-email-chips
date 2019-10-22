@@ -35,7 +35,7 @@ class Chips extends Component {
 
 	componentDidMount() {
 		this.setChips(this.props.chips, false);
-		this.inputRef.current.focus();
+		this.inputRef.current && this.inputRef.current.focus();
 	}
 
 	setChips(chips, save) {
@@ -97,6 +97,7 @@ class Chips extends Component {
 	}
 
 	updateChips(event) {
+		
 		const value = event.target.value;
 
 		if (!value) {
@@ -106,7 +107,7 @@ class Chips extends Component {
 		const chipValue = value.trim().toLowerCase();
 
 		// check if it is already exists
-		const [chipExists] = this.state.chips.filter(chip => chip.value === chipValue);
+		const [chipExists] = this.state.chips.filter(chip => chip.email === chipValue);
 
 		if (chipExists) {
 			// @todo maybe get/set it on state
