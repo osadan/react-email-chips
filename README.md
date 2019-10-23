@@ -32,7 +32,7 @@ function DemoComponent() {
 				required={true}
 				title='Email Chips:'
 				limit='5'
-				limitNotification={data => console.log('limit notification', data)}
+				limitMessage='You’ve hit the maximum number of emails'
 			></Chips>
 		</div>
 	);
