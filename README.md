@@ -25,16 +25,14 @@ function DemoComponent() {
 	return (
 		<div className='Demo'>
 			<Chips
-				chips={[
-					{ email: 'react@gmail.com', valid: true, key: '1' },
-					{ email: 'javascript@gmail.com', valid: true, key: '2' },
-					{ email: 'scss@gmail.com', valid: true, key: '3' }
-				]}
+				chips={[{ email: 'react@gmail.com', valid: true, key: '1' }, { email: 'javascript@gmail.com', valid: true, key: '2' }, { email: 'scss@gmail.com', valid: true, key: '3' }]}
 				placeholder='Add a tag...'
 				save={data => console.log('new data', data)}
 				pattern={pattern}
 				required={true}
 				title='Email Chips:'
+				limit='5'
+				limitMessage='You’ve hit the maximum number of emails'
 			></Chips>
 		</div>
 	);
