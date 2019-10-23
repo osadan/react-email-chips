@@ -15,7 +15,7 @@ class ChipsList extends Component {
 						<button
 							type="button"
 							className="chip-delete-button"
-							onClick={() => this.props.onChipClick(chip)}
+							onClick={e => this.props.onChipClick(e, chip)}
 						>
 							<span>x</span>
 						</button>

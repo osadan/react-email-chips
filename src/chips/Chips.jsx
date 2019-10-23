@@ -22,8 +22,8 @@ class Chips extends Component {
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if (prevState.chips.length === 0) {
 			
-			const disableInput =  nextProps.limit && nextProps.limit <= nextProps.chips.length
-			return { chips: nextProps.chips, disableInput };
+			const disableInput =  nextProps.limit && nextProps.limit <= nextProps.chips.length;
+			return { chips: nextProps.chips, disableInput, limitValidation: disableInput };
 		}
 		return null;
 	}
@@ -34,30 +34,19 @@ class Chips extends Component {
 
 	componentDidMount() {
 		this.setChips(this.props.chips, false);
-		this.focusInput();
 	}
 
 	setChips(chips, save) {
 		if (chips && chips.length) {
-			this.setState({ chips });
 			const validChips = this.getValidChips(chips);
+			const disableInput = this.props.limit && this.props.limit <= validChips.length;			
+			
+			this.setState({ chips, limitValidation: disableInput, disableInput }, this.focusInput);
 			
 			if (save) {
 				this.props.save(validChips);
 			}
-			this.checkLimit();
 		}
-	}
-
-	checkLimit(){
-		const validChips = this.getValidChips(this.state.chips);
-		const disableInput = this.props.limit && this.props.limit <= validChips.length;
-		
-		this.setState({
-			disableInput
-		});
-		
-		this.props.limitNotification && this.props.limitNotification(disableInput);
 	}
 
 	getValidChips(chips) {
@@ -97,12 +86,13 @@ class Chips extends Component {
 				requiredValidation: true
 			});
 			return;
-		}
-
+		}else{
 		const chips = this.state.chips.filter(chip => chip.key !== removedChip.key);
 
 		this.setChips(chips, removedChip.valid);
 		return true;
+		}
+		
 	}
 
 	isOnlyOneValidChip() {
@@ -143,18 +133,27 @@ class Chips extends Component {
 			<div>
 				<div className="chips-header">
 					<span className="chips-title">{this.props.title}</span>
-					<span
-						className={classNames({
-							'chips-required-validation-message': true,
-							visible: this.state.requiredValidation,
-							hidden: !this.state.requiredValidation
-						})}
-					>
-						{this.props.requiredMessage}
+				
+					<span className="chips-validation-message">
+						<span	
+								className={classNames({visible: this.state.requiredValidation,
+								hidden: !this.state.requiredValidation
+							})}
+						>
+							{this.props.requiredMessage}
+						</span>
+						<span
+							className={classNames({
+								visible: this.state.limitValidation,
+								hidden: !this.state.limitValidation
+							})}
+						>
+							{this.props.limitMessage}
+						</span>
 					</span>
 				</div>
 				<div className="chips" onClick={() => this.focusInput()}>
-					<ChipsList chips={this.state.chips} onChipClick={chip => this.deleteChip(chip)} />
+					<ChipsList chips={this.state.chips} onChipClick={(event, chip) => {event.stopPropagation(); this.deleteChip(chip)}} />
 					{ !this.state.disableInput && <input
 						type="text"
 						className="chips-input"
@@ -181,7 +180,7 @@ Chips.propTypes = {
 		PropTypes.string,
 		PropTypes.number
 	]),
-	limitNotification: PropTypes.func
+	limitMessage: PropTypes.string
 };
 
 export default Chips;

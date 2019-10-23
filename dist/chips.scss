@@ -19,20 +19,20 @@ $font-size: 12px;
     color: $chip-title-border;
     font-weight: bold;
   }
-  .chips-required-validation-message {
+  .chips-validation-message {
     font-size: 11px;
     color: $chip-error-color;
     margin-left: 5px;
     animation-fill-mode: forwards;
-    opacity: 0;
+    //opacity: 0;
     transition: 1s;
-    &.visible {
+    & .visible {
       opacity: 1;
-      visibility: visible;
+      display: inline;
     }
-    &.hidden {
+    & .hidden {
       opacity: 0;
-      visibility: hidden;
+      display: none;
     }
   }
 }
