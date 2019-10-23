@@ -1,6 +1,6 @@
 {
   "name": "react-email-chips",
-  "version": "0.1.17",
+  "version": "0.1.19",
   "repository": "osadan/react-email-chips",
   "dependencies": {
     "classnames": "^2.2.6",
@@ -18,8 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:lib": "NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/chips --out-dir dist --copy-files",
-    "prepack": "npm version patch; npm run build:lib"
+    "build:lib": "NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/chips --out-dir dist --copy-files"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",

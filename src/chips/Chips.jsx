@@ -142,14 +142,7 @@ class Chips extends Component {
 						>
 							{this.props.requiredMessage}
 						</span>
-						<span
-							className={classNames({
-								visible: this.state.limitValidation,
-								hidden: !this.state.limitValidation
-							})}
-						>
-							{this.props.limitMessage}
-						</span>
+						
 					</span>
 				</div>
 				<div className="chips" onClick={() => this.focusInput()}>
@@ -162,6 +155,17 @@ class Chips extends Component {
 						onKeyDown={e => this.onKeyDown(e)}
 						ref={this.inputRef}
 					/>}
+				</div>
+				<div className="chips-warning-message">
+				
+				<span
+							className={classNames({
+								visible: this.state.limitValidation,
+								hidden: !this.state.limitValidation
+							})}
+						>
+						<span className='mark'>!</span>	{this.props.limitMessage}
+						</span>
 				</div>
 			</div>
 		);
