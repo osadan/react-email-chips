@@ -1,6 +1,6 @@
 {
   "name": "react-email-chips",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "repository": "osadan/react-email-chips",
   "dependencies": {
     "classnames": "^2.2.6",
