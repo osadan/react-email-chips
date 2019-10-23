@@ -18,6 +18,8 @@ function App() {
 				required={true}
 				requiredMessage="* At least one valid email is required"
 				title="Send notifications to:"
+				limit="5"
+				limitNotification={data => console.log('limit notification', data)}
 			></Chips>
 		</div>
 	);

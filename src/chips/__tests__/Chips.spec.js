@@ -34,14 +34,6 @@ describe('chips', () => {
 				.simulate('click');
 			expect(wrapper.instance().focusInput).toHaveBeenCalled();
 		});
-
-		test('should call focus on the last child', () => {
-			const focusCallback = jest.fn();
-			const children = [{ focus: () => {} }, { focus: focusCallback }];
-			const wrapper = shallow(<Chips {...props} />);
-			wrapper.instance().focusInput({ target: { children } });
-			expect(focusCallback).toHaveBeenCalledTimes(1);
-		});
 	});
 
 	describe('set chips', () => {

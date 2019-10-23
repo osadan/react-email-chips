@@ -13,38 +13,51 @@ class Chips extends Component {
 				backspace: 8,
 				tab: 9,
 				enter: 13
-			}
+			},
+			disableInput: false
 		};
 		this.inputRef = React.createRef();
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
 		if (prevState.chips.length === 0) {
-			return { chips: nextProps.chips };
+			
+			const disableInput =  nextProps.limit && nextProps.limit <= nextProps.chips.length
+			return { chips: nextProps.chips, disableInput };
 		}
 		return null;
 	}
 
-	focusInput(event) {
-		let children = event.target.children;
-
-		if (children.length) {
-			children[children.length - 1].focus();
-		}
+	focusInput() {
+		this.inputRef.current && this.inputRef.current.focus();
 	}
 
 	componentDidMount() {
 		this.setChips(this.props.chips, false);
-		this.inputRef.current && this.inputRef.current.focus();
+		this.focusInput();
 	}
 
 	setChips(chips, save) {
 		if (chips && chips.length) {
 			this.setState({ chips });
+			const validChips = this.getValidChips(chips);
+			
 			if (save) {
-				this.props.save(this.getValidChips(chips));
+				this.props.save(validChips);
 			}
+			this.checkLimit();
 		}
+	}
+
+	checkLimit(){
+		const validChips = this.getValidChips(this.state.chips);
+		const disableInput = this.props.limit && this.props.limit <= validChips.length;
+		
+		this.setState({
+			disableInput
+		});
+		
+		this.props.limitNotification && this.props.limitNotification(disableInput);
 	}
 
 	getValidChips(chips) {
@@ -126,7 +139,6 @@ class Chips extends Component {
 	render() {
 		let placeholder =
 			!this.props.max || this.state.chips.length < this.props.max ? this.props.placeholder : '';
-
 		return (
 			<div>
 				<div className="chips-header">
@@ -141,16 +153,16 @@ class Chips extends Component {
 						{this.props.requiredMessage}
 					</span>
 				</div>
-				<div className="chips" onClick={e => this.focusInput(e)}>
+				<div className="chips" onClick={() => this.focusInput()}>
 					<ChipsList chips={this.state.chips} onChipClick={chip => this.deleteChip(chip)} />
-					<input
+					{ !this.state.disableInput && <input
 						type="text"
 						className="chips-input"
 						onFocus={() => this.clearRequiredValidation()}
 						placeholder={placeholder}
 						onKeyDown={e => this.onKeyDown(e)}
 						ref={this.inputRef}
-					/>
+					/>}
 				</div>
 			</div>
 		);
@@ -164,7 +176,12 @@ Chips.propTypes = {
 	placeholder: PropTypes.string,
 	pattern: PropTypes.instanceOf(RegExp),
 	required: PropTypes.bool,
-	requiredMessage: PropTypes.string
+	requiredMessage: PropTypes.string,
+	limit: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
+	]),
+	limitNotification: PropTypes.func
 };
 
 export default Chips;
