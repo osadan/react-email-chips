@@ -8,6 +8,7 @@ $chip-min-height: 36px;
 $chip-error-color: #ff586c;
 $chip-border-color: #d8e5ef;
 $chip-title-border: #717585;
+$chip-warning-color: #edaf07;
 $font-size: 12px;
 
 .chips-header {
@@ -19,24 +20,41 @@ $font-size: 12px;
     color: $chip-title-border;
     font-weight: bold;
   }
-  .chips-validation-message {
-    font-size: 11px;
-    color: $chip-error-color;
-    margin-left: 5px;
+}
+.chips-warning-message,
+.chips-validation-message {
+  font-size: 11px;
+  margin-left: 5px;
+  span {
     animation-fill-mode: forwards;
-    //opacity: 0;
     transition: 1s;
-    & .visible {
-      opacity: 1;
-      display: inline;
-    }
-    & .hidden {
-      opacity: 0;
-      display: none;
-    }
+  }
+  & .visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  & .hidden {
+    opacity: 0;
+    visibility: hidden;
   }
 }
+.chips-warning-message {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 5px;
+  color: $chip-warning-color;
 
+  .mark {
+    border: 1px solid $chip-warning-color;
+    border-radius: 50%;
+    padding: 0 4px;
+    font-size: 10px;
+  }
+}
+.chips-validation-message {
+  color: $chip-error-color;
+}
 .chips {
   border: 1px solid $chip-title-border;
   border-radius: 8px;
