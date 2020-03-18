@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ChipsList from './ChipsList';
-import './chips.scss';
+import './chips.css';
 
 class Chips extends Component {
 	constructor(props) {
