@@ -60,10 +60,13 @@ class Chips extends Component {
 
 	onKeyDown(event) {
 		const keyPressed = event.which;
+		let inputText = event.target.value;
+		const isComma = inputText.substr(-1) === ',';
 		this.clearRequiredValidation();
 		if (
 			keyPressed === this.state.KEY.enter ||
-			(keyPressed === this.state.KEY.tab && event.target.value)
+			(keyPressed === this.state.KEY.tab && event.target.value) ||
+			isComma
 		) {
 			event.preventDefault();
 			this.updateChips(event);
@@ -107,6 +110,10 @@ class Chips extends Component {
 	updateChips(event) {
 		
 		const value = event.target.value;
+
+		if (value.substr(-1) === ',') {
+			value = value.slice(0, -1);
+		}
 
 		if (!value) {
 			return;
@@ -158,6 +165,8 @@ class Chips extends Component {
 						onFocus={() => this.clearRequiredValidation()}
 						placeholder={placeholder}
 						onKeyDown={e => this.onKeyDown(e)}
+						onChange={e => this.onKeyDown(e)}
+						onBlur={e => this.updateChips(e)}
 						ref={this.inputRef}
 					/>}
 				</div>
