@@ -1,11 +1,16 @@
 {
-  "name": "react-email-chips",
-  "version": "0.1.20",
-  "repository": "osadan/react-email-chips",
+  "name": "react-email-chip",
+  "version": "0.1.25",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanishree/react-email-chips.git"
+  },
   "dependencies": {
     "classnames": "^2.2.6",
     "immutability-helper": "^3.0.1",
     "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
     "react-scripts": "3.1.1",
     "react-test-renderer": "^16.9.0"
   },
@@ -55,5 +60,12 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "node-sass": "^4.12.0"
-  }
+  },
+  "description": "This is react component to create email chips list",
+  "bugs": {
+    "url": "https://github.com/vanishree/react-email-chips/issues"
+  },
+  "homepage": "https://github.com/vanishree/react-email-chips#readme",
+  "author": "vanishree",
+  "license": "ISC"
 }

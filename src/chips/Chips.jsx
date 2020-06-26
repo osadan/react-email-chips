@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ChipsList from './ChipsList';
-import './chips.scss';
+import './chips.css';
 
 class Chips extends Component {
 	constructor(props) {
@@ -36,8 +36,13 @@ class Chips extends Component {
 		this.setChips(this.props.chips, false);
 	}
 
+	componentDidUpdate(prevProps) {
+		if (prevProps.chips.length !== this.props.chips.length)
+			this.setChips(this.props.chips, false);
+	}
+
 	setChips(chips, save) {
-		if (chips && chips.length) {
+		if ((this.props.required && chips.length) || (!this.props.required && chips)) {
 			const validChips = this.getValidChips(chips);
 			const disableInput = this.props.limit && this.props.limit <= validChips.length;			
 			
@@ -55,10 +60,13 @@ class Chips extends Component {
 
 	onKeyDown(event) {
 		const keyPressed = event.which;
+		let inputText = event.target.value;
+		const isComma = inputText.substr(-1) === ',';
 		this.clearRequiredValidation();
 		if (
 			keyPressed === this.state.KEY.enter ||
-			(keyPressed === this.state.KEY.tab && event.target.value)
+			(keyPressed === this.state.KEY.tab && event.target.value) ||
+			isComma
 		) {
 			event.preventDefault();
 			this.updateChips(event);
@@ -101,7 +109,11 @@ class Chips extends Component {
 
 	updateChips(event) {
 		
-		const value = event.target.value;
+		let value = event.target.value;
+
+		if (value.substr(-1) === ',') {
+			value = value.slice(0, -1);
+		}
 
 		if (!value) {
 			return;
@@ -153,6 +165,8 @@ class Chips extends Component {
 						onFocus={() => this.clearRequiredValidation()}
 						placeholder={placeholder}
 						onKeyDown={e => this.onKeyDown(e)}
+						onChange={e => this.onKeyDown(e)}
+						onBlur={e => this.updateChips(e)}
 						ref={this.inputRef}
 					/>}
 				</div>
@@ -186,5 +200,10 @@ Chips.propTypes = {
 	]),
 	limitMessage: PropTypes.string
 };
+
+Chips.defaultProps = {
+	// eslint-disable-next-line
+	pattern: new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i)
+}
 
 export default Chips;
